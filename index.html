@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Party Planner</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="index.js" defer></script>
+</head>
+<body>
+  <h1>Event Calendar</h1>
+  <form id="addEvent">
+    <label>
+      Event Name 
+      <input type="text" name="title" placeholder="Event Name"/>
+    </label>
+    <label>
+      Date
+      <input type="datetime-local" name="date" min="2024-01-01" max="2030-01-01" placeholder="mm/dd/yy"/>
+    </label>
+    <label>
+      Event Details
+      <input type="text" name="details" placeholder="Details"/>
+    </label>
+    <button>Add Event</button>
+  </form>
+  <ul id="events"></ul>
+</body>
+</html>
