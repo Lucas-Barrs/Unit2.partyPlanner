@@ -1,12 +1,12 @@
-const API_URL = 'https://fsa-crud-2aa9294fe819.herokuapp.com/api/2401-GHP-ET-WEB-FT-SF/events';
+const API_URL = "https://fsa-crud-2aa9294fe819.herokuapp.com/api/2401-GHP-ET-WEB-FT-SF/events";
 const state = {
   events: []
 }
 
 const eventsList = document.querySelector('#events');
 
-const addEventsForm = document.querySelector('#addEvent');
-addEventsForm.addEventListener('submit', createEvent);
+const addEventForm = document.querySelector('#addEvent');
+addEventForm.addEventListener('submit', createEvent);
 
 async function render() {
   await getEvents ()
@@ -28,16 +28,17 @@ try {
 async function createEvent(event){
   event.preventDefault()
 
-  const name = addEventsForm.title.value
-  const date = addEventsForm.date.value
-  const location = addEventsForm.location.value
-  const details = addEventsForm.details.value
+  const name = addEventForm.title.value
+  // const date = addEventForm.date.value
+  const date = "2023-08-20T23:40:08.000Z"
+  const location = addEventForm.location.value
+  const description = addEventForm.description.value
 
   try{
     const responce = await fetch(API_URL, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({name, date, location, details})
+      body: JSON.stringify({name, date, location, description})
     })
     const json = await responce.json()
     render()
@@ -63,7 +64,7 @@ function renderEvents() {
     newListItem.textContent = 'No events added yet :('
     eventsList.append(newListItem)
   } else {
-    recipesList.replaceChildren()
+    eventsList.replaceChildren()
     state.events.forEach((eventObj) => {
       const newListItem = document.createElement("li")
       newListItem.classList.add("event")
@@ -78,15 +79,15 @@ function renderEvents() {
       newParagraph2.textContent = eventObj.location
 
       const newParagraph3 = document.createElement("p")
-      newParagraph3.textContent = eventObj.details
+      newParagraph3.textContent = eventObj.description
 
       const deleteButton = document.createElement("button")
       deleteButton.textContent = "Delete"
-      deleteButton.addEventListener("click", () => deleteRecipe(recipeObj.id))
+      deleteButton.addEventListener("click", () => deleteEvent(eventObj.id))
 
       newListItem.append(newHeading, newParagraph1, newParagraph2, newParagraph3, deleteButton)
-      // append to `recipesList`
-      recipesList.append(newListItem) 
+      
+      eventsList.append(newListItem) 
     })
   }
 }
